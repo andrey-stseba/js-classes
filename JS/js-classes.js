@@ -1,17 +1,41 @@
 // 1) Переписать функцию-конструктор MyArray на классы. *Переписать методы unshift, push для неограниченного числа аргументов.
 
 class MyArray {
-  constructor() {
-    this.arguments = arguments;
+  constructor(length = 0) {
+    this.length = length;
   }
-  getLengthArray() {
-    return `${this.arguments.length}`;
+  pop() {
+    if (this.length === 0) {
+      return;
+    }
+    const lastItem = this[this.length - 1];
+    delete this[--this.length];
+    return lastItem;
+  }
+  push(item) {
+    this[this.length] = item;
+    return ++this.length;
+  }
+  shift() {
+    if (this.length === 0) {
+      return;
+    }
+    const fistItem = this[0];
+    for (let i = 0; i < this.length - 1; i++) {
+      this[i] = this[i + 1];
+    }
+    delete this[--this.length];
+    return fistItem;
   }
 }
 
-const arr1 = new MyArray(2, 3, 4, 5, 6, 8);
-// console.log(arr1.getLengthArray());
-// console.dir(arr1);
+const myArr = new MyArray();
+myArr.push(1);
+myArr.push(2);
+myArr.push(3);
+myArr.pop();
+
+//console.log("myArr :>> ", myArr);
 
 // 2) Реализовать класс RangeValidator(Валидатор диапазона), со следующими свойствами:
 // ■ from (number);
@@ -52,8 +76,7 @@ class RangeValidator {
   // Реализовать getter range, который будет возвращать массив с двумя числами диапазона
 
   get range() {
-    const arrayRange = [this.from, this.to];
-    return arrayRange;
+    return [this.from, this.to];
   }
   // Реализовать метод validate, который будет принимать число и проверить входит ли число в указанный диапазон.
   getValidate(n) {
