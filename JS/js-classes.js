@@ -12,9 +12,12 @@ class MyArray {
     delete this[--this.length];
     return lastItem;
   }
-  push(item) {
-    this[this.length] = item;
-    return ++this.length;
+  push() {
+    for (let i = 0; i < arguments.length; i++) {
+      this[this.length] = arguments[i];
+      ++this.length;
+    }
+    return this.length;
   }
   shift() {
     if (this.length === 0) {
@@ -30,10 +33,8 @@ class MyArray {
 }
 
 const myArr = new MyArray();
-myArr.push(1);
-myArr.push(2);
-myArr.push(3);
-myArr.pop();
+myArr.push(1, 2, 3, 4, 5, 6);
+console.log(myArr);
 
 //console.log("myArr :>> ", myArr);
 
